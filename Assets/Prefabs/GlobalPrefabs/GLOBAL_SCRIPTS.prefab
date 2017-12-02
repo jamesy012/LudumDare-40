@@ -53,7 +53,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ListOfSpots: {fileID: 0}
-  m_ListOfObjects: []
+  m_ListOfObjects:
+  - {fileID: 114692344591698030, guid: 7c65a06c4dbd31c4ba20ad5e9fa75113, type: 2}
+  - {fileID: 114715879733823548, guid: 556c48260454fec41b69aeb22bb7b843, type: 2}
+  - {fileID: 114373099260245110, guid: 7299ae3a6ea39e642b0f78503063caa4, type: 2}
 --- !u!114 &114350710398829360
 MonoBehaviour:
   m_ObjectHideFlags: 1
