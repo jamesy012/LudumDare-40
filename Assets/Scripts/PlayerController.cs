@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour {
 			m_NumJumpsUsed++;
 			//wall jump
 			if (m_IsOnWall) {
-				print("walljmp");
 				RaycastHit2D jumpRh2d = Physics2D.Raycast(transform.position, new Vector3(horizontalMovment * Time.deltaTime, 0, 0), 0.4f, m_PlayerLayerMask);
 				verticalMovment += 2.0f;
 				if (jumpRh2d) {

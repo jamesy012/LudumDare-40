@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class SpawnNewObjects : MonoBehaviour {
 
-	public Transform m_ListOfSpots;
-	public List<Draggable> m_ListOfObjects;
+	public Transform m_ListOfSpots;	
 
 	private Draggable[] m_SpwanedObjects;
+	private ObjList m_List;
 
 	// Use this for initialization
 	void Awake() {
+		m_List = GetComponent<ObjList>();
 		m_SpwanedObjects = new Draggable[m_ListOfSpots.childCount];
-		for (int i = 0; i < m_ListOfObjects.Count; i++) {
-			if(m_ListOfObjects[i] == null) {
+		for (int i = 0; i < m_List.m_ListOfObjects.Count; i++) {
+			if(m_List.m_ListOfObjects[i] == null) {
 				Debug.LogError("One of the ListOfObjects items are null");
 			}
 		}
@@ -28,7 +29,7 @@ public class SpawnNewObjects : MonoBehaviour {
 	}
 
 	private void spwanObject(int a_Slot) {
-		m_SpwanedObjects[a_Slot] = Instantiate(m_ListOfObjects[Random.Range(0, m_ListOfObjects.Count)], m_ListOfSpots.GetChild(a_Slot).position, Quaternion.identity);
+		m_SpwanedObjects[a_Slot] = Instantiate(m_List.getRandomObject(), m_ListOfSpots.GetChild(a_Slot).position, Quaternion.identity);
 
 		Rigidbody2D rb2d = m_SpwanedObjects[a_Slot].GetComponent<Rigidbody2D>();
 		rb2d.angularVelocity = 0;
