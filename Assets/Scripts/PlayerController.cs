@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour {
 			m_NumJumpsUsed++;
 			//wall jump
 			if (m_IsOnWall) {
+				print("walljmp");
 				RaycastHit2D jumpRh2d = Physics2D.Raycast(transform.position, new Vector3(horizontalMovment * Time.deltaTime, 0, 0), 0.4f, m_PlayerLayerMask);
 				verticalMovment += 2.0f;
 				if (jumpRh2d) {
@@ -68,12 +69,13 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void groundCheck() {
-		//Debug.DrawRay(transform.position + new Vector3(0.4f,-0.3f,0), (Vector3.down + new Vector3(-1,0,0)).normalized,Color.red);
-		RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0.4f, -0.3f, 0), (Vector3.down + new Vector3(-1, 0, 0)).normalized, 1, m_PlayerLayerMask);
-		RaycastHit2D hit2 = Physics2D.Raycast(transform.position + new Vector3(-0.4f, -0.3f, 0), (Vector3.down + new Vector3(1, 0, 0)).normalized, 1, m_PlayerLayerMask);
+		Debug.DrawRay(transform.position + new Vector3(0.4f,-0.3f,0), (Vector3.down + new Vector3(-2,0,0)).normalized,Color.red);
+		Debug.DrawRay(transform.position + new Vector3(-0.4f,-0.3f,0), (Vector3.down + new Vector3(2,0,0)).normalized,Color.red);
+		RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0.4f, -0.3f, 0), (Vector3.down + new Vector3(-2, 0, 0)).normalized, 1, m_PlayerLayerMask);
+		RaycastHit2D hit2 = Physics2D.Raycast(transform.position + new Vector3(-0.4f, -0.3f, 0), (Vector3.down + new Vector3(2, 0, 0)).normalized, 1, m_PlayerLayerMask);
 		//print(hit.transform);
 		m_IsOnGround = hit.transform != null || hit2.transform != null;
-		m_IsOnWall = hit.transform != null ^ hit2.transform != null;
+		m_IsOnWall = (hit.transform != null ^ hit2.transform != null) || hit.transform == hit2.transform;
 
 		RaycastHit2D simpleCheck = Physics2D.Raycast(transform.position, m_Rb.velocity, 0.5f, m_PlayerLayerMask);
 		if (simpleCheck.transform != null) {
