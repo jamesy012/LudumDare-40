@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnNewObjects : MonoBehaviour {
 
-	public Transform m_ListOfSpots;	
+	public Transform m_ListOfSpots;
 
 	private Draggable[] m_SpwanedObjects;
 	private ObjList m_List;
@@ -29,12 +29,18 @@ public class SpawnNewObjects : MonoBehaviour {
 	}
 
 	private void spwanObject(int a_Slot) {
-		m_SpwanedObjects[a_Slot] = Instantiate(m_List.getRandomObject(), m_ListOfSpots.GetChild(a_Slot).position, Quaternion.identity);
+		GameObject go = new GameObject();
 
-		Rigidbody2D rb2d = m_SpwanedObjects[a_Slot].GetComponent<Rigidbody2D>();
-		rb2d.angularVelocity = 0;
-		rb2d.velocity = Vector2.zero;
-		rb2d.bodyType = RigidbodyType2D.Kinematic;
+		go.transform.position = m_ListOfSpots.GetChild(a_Slot).position;
+
+		go.AddComponent<SpriteRenderer>().sprite = m_List.getRandomObject();
+
+		go.AddComponent<BoxCollider2D>();
+
+		Rigidbody2D rb = go.AddComponent<Rigidbody2D>();
+		rb.bodyType = RigidbodyType2D.Kinematic;
+
+		m_SpwanedObjects[a_Slot] = go.AddComponent<Draggable>();
 	}
 
 }

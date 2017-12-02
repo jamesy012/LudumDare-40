@@ -84,8 +84,16 @@ public class GameplayManager : MonoBehaviour {
 		}
 	}
 
+	private Sprite getRandomObjectInLevel() {
+		Pickupable[] objects = FindObjectsOfType<Pickupable>();
+		if(objects.Length <= 4) {
+			return m_ObjList.getRandomObject();
+		}
+		return objects[UnityEngine.Random.Range(0, objects.Length)].GetComponent<SpriteRenderer>().sprite;
+	}
+
 	private void getNextObject() {
-		m_RequiredObjHolder.sprite = m_ObjList.getRandomObject().GetComponent<SpriteRenderer>().sprite;
+		m_RequiredObjHolder.sprite = getRandomObjectInLevel();
 
 		//there is a chance they could have put another object in while the door is closing
 		m_NumOfCrosses = 0;

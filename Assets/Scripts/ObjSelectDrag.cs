@@ -41,7 +41,8 @@ public class ObjSelectDrag : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0) && !m_SelectedObject.isInCollider()) {
 			m_SelectedObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 			m_SelectedObject.GetComponent<Rigidbody2D>().velocity = getMouseVel() * 30;
-			m_SelectedObject.GetComponent<Collider2D>().isTrigger = false;
+			Destroy(m_SelectedObject.GetComponent<BoxCollider2D>());
+			m_SelectedObject.gameObject.AddComponent<PolygonCollider2D>();
 			m_SelectedObject.gameObject.AddComponent<Pickupable>();
 			Destroy(m_SelectedObject);
 		}

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class ObjList : MonoBehaviour {
 
-	public List<Draggable> m_ListOfObjects;
+	public List<Sprite> m_ListOfObjects;
 
-	public Draggable getRandomObject() {
+	public Sprite getRandomObject() {
 		return m_ListOfObjects[Random.Range(0, m_ListOfObjects.Count)];
 	}
 
