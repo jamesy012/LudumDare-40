@@ -138,3 +138,8 @@ MonoBehaviour:
   m_CrossHolder: {fileID: 0}
   m_TimeBetweenRequests: 5
   m_RandomOffset: 3
+  m_TimeForTurn: 10
+  m_Col1: {r: 0, g: 0, b: 1, a: 1}
+  m_Col2: {r: 1, g: 0, b: 0, a: 1}
+  m_TimerMask: {fileID: 0}
+  m_NameText: {fileID: 0}

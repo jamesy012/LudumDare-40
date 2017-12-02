@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\DoorController.cs" />
     <Compile Include="Assets\Scripts\Draggable.cs" />
     <Compile Include="Assets\Scripts\GameplayManager.cs" />
+    <Compile Include="Assets\Scripts\ListOfNames.cs" />
     <Compile Include="Assets\Scripts\MenuCommon.cs" />
     <Compile Include="Assets\Scripts\ObjList.cs" />
     <Compile Include="Assets\Scripts\ObjPlayerSelect.cs" />

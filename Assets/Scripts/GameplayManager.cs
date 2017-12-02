@@ -18,6 +18,16 @@ public class GameplayManager : MonoBehaviour {
 
 	private bool m_HasObject = false;
 
+	public float m_TimeForTurn = 10.0f;
+	private float m_TurnTimeStart = 0;
+	public Color m_Col1;
+	public Color m_Col2;
+	public SpriteMask m_TimerMask;
+	private SpriteRenderer m_TimerSpriteRenderer;
+
+	private string m_StartingText;
+	public TextMesh m_NameText;
+
 	/// <summary>
 	/// counter for the amount of errors the player has done this turn
 	/// </summary>
@@ -36,8 +46,21 @@ public class GameplayManager : MonoBehaviour {
 		if (m_DoorRotHolder == null) {
 			Debug.LogWarning("m_DoorRotHolder is null");
 		}
+		if (m_TimerMask == null) {
+			Debug.LogWarning("m_TimerMask is null");
+		}
+		if (m_NameText == null) {
+			Debug.LogWarning("m_NameText is null");
+		}
+
+		m_TimerSpriteRenderer = m_TimerMask.GetComponent<SpriteRenderer>();
+		m_TimerMask.alphaCutoff = 1;
+
+		m_StartingText = m_NameText.text;
+		m_NameText.text = "Requests appear here:";
 
 		setupNextTurn();
+		m_LastTime = Time.time - m_TimeBetweenRequests/2;
 	}
 
 	private void Update() {
@@ -46,7 +69,18 @@ public class GameplayManager : MonoBehaviour {
 				m_HasObject = true;
 				getNextObject();
 				m_DoorController.runDoorAnimation(true);
+				m_TurnTimeStart = Time.time;
 			}
+		}else {
+			float percentage = (Time.time - m_TurnTimeStart) / m_TimeForTurn;
+
+			if(percentage > 1) {
+				percentage = 1;
+				setupNextTurn();
+			}
+
+			m_TimerMask.alphaCutoff = percentage;
+			m_TimerSpriteRenderer.color = Color.Lerp(m_Col1, m_Col2, percentage);
 		}
 	}
 
@@ -57,6 +91,7 @@ public class GameplayManager : MonoBehaviour {
 		m_NumOfCrosses = 0;
 		updateCrossUI();
 
+		m_NameText.text = m_StartingText.Replace("_NAME_", ListOfNames.getRandomName());
 	}
 
 	private void setupNextTurn() {
