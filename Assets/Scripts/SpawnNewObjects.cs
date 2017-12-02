@@ -12,7 +12,11 @@ public class SpawnNewObjects : MonoBehaviour {
 	// Use this for initialization
 	void Awake() {
 		m_SpwanedObjects = new Draggable[m_ListOfSpots.childCount];
-
+		for (int i = 0; i < m_ListOfObjects.Count; i++) {
+			if(m_ListOfObjects[i] == null) {
+				Debug.LogError("One of the ListOfObjects items are null");
+			}
+		}
 	}
 
 	private void Update() {

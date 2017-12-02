@@ -11,8 +11,20 @@ public class ObjSelectDrag : MonoBehaviour {
 	private Vector2 m_LastMousePos = Vector2.zero;
 	private int m_CurrentLmpIndex = 0;
 
+	public bool isHoldingSomething { get { return m_SelectedObject != null; } }
+
+	private ObjPlayerSelect m_Ops;
+
+	private void Awake() {
+		m_Ops = FindObjectOfType<ObjPlayerSelect>();
+	}
+
 	// Update is called once per frame
 	void Update() {
+		if (m_Ops.isHoldingSomething) {
+			return;
+		}
+
 		if (m_SelectedObject == null) {
 			selectObject();
 			return;
@@ -30,6 +42,7 @@ public class ObjSelectDrag : MonoBehaviour {
 			m_SelectedObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 			m_SelectedObject.GetComponent<Rigidbody2D>().velocity = getMouseVel() * 30;
 			m_SelectedObject.GetComponent<Collider2D>().isTrigger = false;
+			m_SelectedObject.gameObject.AddComponent<Pickupable>();
 			Destroy(m_SelectedObject);
 		}
 	}

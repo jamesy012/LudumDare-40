@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(BoxCollider2D))]
 public class PlayerController : MonoBehaviour {
 
 	private Rigidbody2D m_Rb;
-	private BoxCollider2D m_Collider;
 	private int m_PlayerLayerMask = 0;
 
 	public float m_JumpScale = 12.0f;
@@ -20,7 +18,6 @@ public class PlayerController : MonoBehaviour {
 
 	private void Awake() {
 		m_Rb = GetComponent<Rigidbody2D>();
-		m_Collider = GetComponent<BoxCollider2D>();
 		m_PlayerLayerMask = ~ (1<<LayerMask.NameToLayer("Player"));
 
 		m_Rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -65,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 		vel.x += horizontalMovment;
 		vel.x = Mathf.Clamp(vel.x, -5, 5);
 		vel.y += verticalMovment;
-		vel.y = Mathf.Clamp(vel.y, -10, 10);
+		vel.y = Mathf.Clamp(vel.y, -15, 15);
 		m_Rb.velocity = vel;
 
 	}
