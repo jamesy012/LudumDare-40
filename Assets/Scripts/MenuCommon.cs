@@ -8,4 +8,13 @@ public class MenuCommon : MonoBehaviour {
 	public void restartLevel() {
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
+
+	public void quit() {
+#if UNITY_EDITOR
+		UnityEditor.EditorApplication.isPlaying = false;
+#else
+		Application.Quit();
+#endif
+
+	}
 }
