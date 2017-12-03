@@ -30,6 +30,7 @@ public class GameplayManager : MonoBehaviour {
 	public TextMesh m_NameText;
 
 	private CameraShake m_CameraShake;
+	private FeedbackController m_Feedback;
 
 	/// <summary>
 	/// counter for the amount of errors the player has done this turn
@@ -40,6 +41,7 @@ public class GameplayManager : MonoBehaviour {
 		m_ObjList = GetComponent<ObjList>();
 		m_DoorController = FindObjectOfType<DoorController>();
 		m_CameraShake = FindObjectOfType<CameraShake>();
+		m_Feedback = FindObjectOfType<FeedbackController>();
 
 		if (m_CrossHolder == null) {
 			Debug.LogWarning("m_CrossHolder is null");
@@ -58,6 +60,9 @@ public class GameplayManager : MonoBehaviour {
 		}
 		if (m_CameraShake == null) {
 			Debug.LogWarning("m_CameraShake is null");
+		}
+		if (m_Feedback == null) {
+			Debug.LogWarning("m_Feedback is null");
 		}
 
 		m_TimerSpriteRenderer = m_TimerMask.GetComponent<SpriteRenderer>();
@@ -145,7 +150,9 @@ public class GameplayManager : MonoBehaviour {
 	}
 
 	public void objectSent(GameObject a_Object) {
-		if(a_Object.GetComponent<SpriteRenderer>().sprite == m_RequiredObjHolder.sprite) {
+		bool correct = a_Object.GetComponent<SpriteRenderer>().sprite == m_RequiredObjHolder.sprite;
+		m_Feedback.addFeedback(a_Object.GetComponent<SpriteRenderer>().sprite, correct);
+		if (correct) {
 			setupNextTurn();
 		}else {
 			m_CameraShake.startShake();

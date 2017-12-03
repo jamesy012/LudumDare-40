@@ -82,6 +82,7 @@
     <Compile Include="Assets\Scripts\Conveyor.cs" />
     <Compile Include="Assets\Scripts\DoorController.cs" />
     <Compile Include="Assets\Scripts\Draggable.cs" />
+    <Compile Include="Assets\Scripts\FeedbackController.cs" />
     <Compile Include="Assets\Scripts\GameplayManager.cs" />
     <Compile Include="Assets\Scripts\ListOfNames.cs" />
     <Compile Include="Assets\Scripts\MakeObjectPickupable.cs" />
