@@ -43,7 +43,7 @@ public class ObjPlayerSelect : MonoBehaviour {
 		Vector2 mouseDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
 		if (m_CurrentlyPickedUp == null) {
-			RaycastHit2D simpleCheck = Physics2D.Raycast(transform.position, mouseDir, m_PickupRange, ~(1 << LayerMask.NameToLayer("Player")));
+			RaycastHit2D simpleCheck = Physics2D.Raycast(transform.position, mouseDir, m_PickupRange, ~((1 << LayerMask.NameToLayer("Player")) | 1 << LayerMask.NameToLayer("PlayerOnlyCollider")));
 
 			if (simpleCheck) {
 				pickUpObject(simpleCheck.transform.GetComponent<Pickupable>());

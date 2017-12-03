@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\ListOfNames.cs" />
     <Compile Include="Assets\Scripts\MakeObjectPickupable.cs" />
     <Compile Include="Assets\Scripts\MenuCommon.cs" />
+    <Compile Include="Assets\Scripts\MusicPlayer.cs" />
     <Compile Include="Assets\Scripts\ObjList.cs" />
     <Compile Include="Assets\Scripts\ObjPlayerSelect.cs" />
     <Compile Include="Assets\Scripts\ObjPull.cs" />
@@ -94,7 +95,9 @@
     <Compile Include="Assets\Scripts\ObjSelectDrag.cs" />
     <Compile Include="Assets\Scripts\Pickupable.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\ScoreManager.cs" />
     <Compile Include="Assets\Scripts\SpawnNewObjects.cs" />
+    <Compile Include="Assets\Scripts\TextMoveUp.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Music\track1.txt" />

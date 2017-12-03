@@ -26,11 +26,14 @@ public class GameplayManager : MonoBehaviour {
 	public SpriteMask m_TimerMask;
 	private SpriteRenderer m_TimerSpriteRenderer;
 
-	private string m_StartingText;
-	public TextMesh m_NameText;
+	private string m_StartingRequestText;	
+	[UnityEngine.Serialization.FormerlySerializedAs("m_NameText")]
+	public TextMesh m_RequestingText;
 
 	private CameraShake m_CameraShake;
 	private FeedbackController m_Feedback;
+
+	private ScoreManager m_Sm;
 
 	/// <summary>
 	/// counter for the amount of errors the player has done this turn
@@ -39,6 +42,7 @@ public class GameplayManager : MonoBehaviour {
 
 	private void Awake() {
 		m_ObjList = GetComponent<ObjList>();
+		m_Sm = GetComponent<ScoreManager>();
 		m_DoorController = FindObjectOfType<DoorController>();
 		m_CameraShake = FindObjectOfType<CameraShake>();
 		m_Feedback = FindObjectOfType<FeedbackController>();
@@ -55,7 +59,7 @@ public class GameplayManager : MonoBehaviour {
 		if (m_TimerMask == null) {
 			Debug.LogWarning("m_TimerMask is null");
 		}
-		if (m_NameText == null) {
+		if (m_RequestingText == null) {
 			Debug.LogWarning("m_NameText is null");
 		}
 		if (m_CameraShake == null) {
@@ -68,8 +72,8 @@ public class GameplayManager : MonoBehaviour {
 		m_TimerSpriteRenderer = m_TimerMask.GetComponent<SpriteRenderer>();
 		m_TimerMask.alphaCutoff = 1;
 
-		m_StartingText = m_NameText.text;
-		m_NameText.text = "Requests appear here:";
+		m_StartingRequestText = m_RequestingText.text;
+		m_RequestingText.text = "Requests appear here:";
 
 		setupNextTurn();
 		m_LastTime = Time.time - m_TimeBetweenRequests/2;
@@ -88,6 +92,7 @@ public class GameplayManager : MonoBehaviour {
 			if(percentage > 1) {
 				percentage = 1;
 				setupNextTurn();
+				m_Sm.timerRunOut();
 			}
 
 			m_TimerMask.alphaCutoff = percentage;
@@ -111,6 +116,8 @@ public class GameplayManager : MonoBehaviour {
 			return;
 		}
 
+		m_Sm.addNewRequest();
+
 		//there is a chance they could have put another object in while the door is closing
 		m_NumOfCrosses = 0;
 		updateCrossUI();
@@ -118,7 +125,7 @@ public class GameplayManager : MonoBehaviour {
 		m_TurnTimeStart = Time.time;
 
 		m_DoorController.runDoorAnimation(true);
-		m_NameText.text = m_StartingText.Replace("_NAME_", ListOfNames.getRandomName());
+		m_RequestingText.text = m_StartingRequestText.Replace("_NAME_", ListOfNames.getRandomName());
 	}
 
 	private void setupNextTurn() {
@@ -154,7 +161,9 @@ public class GameplayManager : MonoBehaviour {
 		m_Feedback.addFeedback(a_Object.GetComponent<SpriteRenderer>().sprite, correct);
 		if (correct) {
 			setupNextTurn();
-		}else {
+			m_Sm.addedRightItem();
+		} else {
+			m_Sm.addedWrongItem();
 			m_CameraShake.startShake();
 			m_NumOfCrosses++;
 			updateCrossUI();
