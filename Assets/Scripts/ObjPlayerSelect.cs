@@ -35,6 +35,9 @@ public class ObjPlayerSelect : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
+		if (PauseHandler.m_IsPaused) {
+			return;
+		}
 		if (m_Osd.isHoldingSomething) {
 			pickUpObject(null);
 			return;

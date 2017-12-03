@@ -15,14 +15,21 @@ public class ObjSelectDrag : MonoBehaviour {
 
 	private ObjPlayerSelect m_Ops;
 
+	public bool m_IsMainMenu = false;
+
 	private void Awake() {
 		m_Ops = FindObjectOfType<ObjPlayerSelect>();
 	}
 
 	// Update is called once per frame
 	void Update() {
-		if (m_Ops.isHoldingSomething) {
+		if (PauseHandler.m_IsPaused) {
 			return;
+		}
+		if (m_Ops != null) {
+			if (m_Ops.isHoldingSomething) {
+				return;
+			}
 		}
 
 		if (m_SelectedObject == null) {
@@ -41,10 +48,15 @@ public class ObjSelectDrag : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0) && !m_SelectedObject.isInCollider()) {
 			m_SelectedObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 			m_SelectedObject.GetComponent<Rigidbody2D>().velocity = getMouseVel() * 30;
-			Destroy(m_SelectedObject.GetComponent<BoxCollider2D>());
-			m_SelectedObject.gameObject.AddComponent<PolygonCollider2D>();
-			m_SelectedObject.gameObject.AddComponent<Pickupable>();
-			Destroy(m_SelectedObject);
+			if (!m_IsMainMenu) {
+				Destroy(m_SelectedObject.GetComponent<BoxCollider2D>());
+				m_SelectedObject.gameObject.AddComponent<PolygonCollider2D>();
+				m_SelectedObject.gameObject.AddComponent<Pickupable>();
+				Destroy(m_SelectedObject);
+			}else {
+				m_SelectedObject.GetComponent<Collider2D>().isTrigger = false;
+				m_SelectedObject = null;
+			}
 		}
 	}
 

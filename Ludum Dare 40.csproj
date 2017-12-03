@@ -94,6 +94,7 @@
     <Compile Include="Assets\Scripts\ObjPull.cs" />
     <Compile Include="Assets\Scripts\ObjPuller.cs" />
     <Compile Include="Assets\Scripts\ObjSelectDrag.cs" />
+    <Compile Include="Assets\Scripts\PauseHandler.cs" />
     <Compile Include="Assets\Scripts\Pickupable.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\ScoreManager.cs" />
@@ -103,6 +104,7 @@
   <ItemGroup>
     <None Include="Assets\Music\track1.txt" />
     <None Include="Assets\Music\track2.txt" />
+    <None Include="Assets\Music\track3.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

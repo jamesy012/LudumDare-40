@@ -31,6 +31,9 @@ public class PlayerController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		if (PauseHandler.m_IsPaused) {
+			return;
+		}
 		groundCheck();
 
 		//todo add wall jumps

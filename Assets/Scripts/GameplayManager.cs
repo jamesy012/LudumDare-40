@@ -46,7 +46,7 @@ public class GameplayManager : MonoBehaviour {
 	/// </summary>
 	private int m_NumOfCrosses = 0;
 
-	private void Awake() {
+	private void Start() {
 		m_ObjList = GetComponent<ObjList>();
 		m_Sm = GetComponent<ScoreManager>();
 		m_DoorController = FindObjectOfType<DoorController>();
@@ -96,6 +96,9 @@ public class GameplayManager : MonoBehaviour {
 	}
 
 	private void Update() {
+		if (PauseHandler.m_IsPaused) {
+			return;
+		}
 		if (!m_HasObject) {
 			if(Time.time - m_LastTime > m_TimeBetweenRequests) {
 				getNextObject();

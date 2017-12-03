@@ -10,12 +10,17 @@ public class MusicPlayer : MonoBehaviour {
 
 	public UnityEngine.UI.Text m_MutedText;
 
+	public AudioClip[] m_AudioClips;
+	private static AudioClip m_CurrentClip = null;
+
 	private void Awake() {
 		int muted = PlayerPrefs.GetInt(MUTED_KEY, 0);
 		m_IsMuted = muted == 1;
 
 		m_As = GetComponent<AudioSource>();
 
+
+		setCurrentClip();
 		updateAudioSource();
 		updateMutedText();
 	}
@@ -26,6 +31,16 @@ public class MusicPlayer : MonoBehaviour {
 
 		updateAudioSource();
 		updateMutedText();
+	}
+
+	private void setCurrentClip() {
+		AudioClip nextClip = null;
+		while(nextClip == m_CurrentClip || nextClip == null) {
+			nextClip = m_AudioClips[Random.Range(0, m_AudioClips.Length)];
+		}
+		m_As.clip = nextClip;
+		m_CurrentClip = nextClip;
+		m_As.Play();
 	}
 
 	private void updateMutedText() {

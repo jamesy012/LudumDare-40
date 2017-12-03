@@ -16,6 +16,11 @@ public class ScoreManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake() {
+		if(m_ScoreText == null) {
+			Debug.LogWarning("Score Manager is missing it's scoreText");
+			Destroy(this);
+			return;
+		}
 		m_StartingScoreText = m_ScoreText.text;
 		updateScore();
 	}

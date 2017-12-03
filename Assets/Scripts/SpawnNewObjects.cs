@@ -12,6 +12,8 @@ public class SpawnNewObjects : MonoBehaviour {
 	public float m_TimeBetweenNewItems = 5.0f;
 	private float m_LastSpwanTime = 0;
 
+	public bool m_IsMainMenu = false;
+
 	// Use this for initialization
 	void Awake() {
 		m_List = GetComponent<ObjList>();
@@ -27,7 +29,7 @@ public class SpawnNewObjects : MonoBehaviour {
 	private void Update() {
 		if (Time.time - m_LastSpwanTime > m_TimeBetweenNewItems) {
 			for (int i = 0; i < m_SpwanedObjects.Length; i++) {
-				if (m_SpwanedObjects[i] == null) {
+				if (m_SpwanedObjects[i] == null || m_IsMainMenu) {
 					spwanObject(i);
 				}
 			}

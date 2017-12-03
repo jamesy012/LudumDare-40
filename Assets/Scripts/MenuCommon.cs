@@ -15,6 +15,13 @@ public class MenuCommon : MonoBehaviour {
 #else
 		Application.Quit();
 #endif
+	}
 
+	public void loadLevel(int a_Index) {
+		SceneManager.LoadScene(a_Index);
+	}
+
+	public void flipActive(GameObject a_Object) {
+		a_Object.SetActive(!a_Object.activeInHierarchy);
 	}
 }
