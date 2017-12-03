@@ -262,9 +262,11 @@ public class GameplayManager : MonoBehaviour {
 		} else {
 			m_Sm.addedWrongItem();
 			m_CameraShake.startShake();
-			m_NumOfCrosses++;
-			updateCrossUI();
-			runLoseCheck();
+			if (m_HasObject) {
+				m_NumOfCrosses++;
+				updateCrossUI();
+				runLoseCheck();
+			}
 		}
 	}
 

@@ -17,9 +17,12 @@ public class PlayerController : MonoBehaviour {
 	private int m_NumJumpsUsed = 0;
 	public int m_MaxNumOfJumps = 2;
 
+	private Animator m_Animator;
+
 	private void Awake() {
 		m_Rb = GetComponent<Rigidbody2D>();
 		m_Sr = GetComponent<SpriteRenderer>();
+		m_Animator = GetComponent<Animator>();
 
 		m_PlayerLayerMask = ~ (1<<LayerMask.NameToLayer("Player"));
 
@@ -33,14 +36,18 @@ public class PlayerController : MonoBehaviour {
 		//todo add wall jumps
 		float horizontalMovment = 0;
 		float verticalMovment = 0;
+		bool didMove = false;
 		if (Input.GetKey(KeyCode.D)) {
 			horizontalMovment += Vector2.right.x * m_HorizontalMovementScale;
 			m_Sr.flipX = true;
+			didMove = true;
 		}
 		if (Input.GetKey(KeyCode.A)) {
 			horizontalMovment += Vector2.left.x * m_HorizontalMovementScale;
 			m_Sr.flipX = false;
+			didMove = true;
 		}
+		m_Animator.SetBool("Run", didMove);
 
 		if (Input.GetKeyDown(KeyCode.W) && m_NumJumpsUsed != m_MaxNumOfJumps) {
 			m_NumJumpsUsed++;
@@ -60,6 +67,7 @@ public class PlayerController : MonoBehaviour {
 
 		Vector2 vel = m_Rb.velocity;
 		RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector3(horizontalMovment * Time.deltaTime,0,0), 0.4f, m_PlayerLayerMask);
+		m_Animator.SetBool("OnWall", hit);
 		if (hit) {
 			horizontalMovment *= 0.5f;
 			verticalMovment += -0.2f;
@@ -81,6 +89,8 @@ public class PlayerController : MonoBehaviour {
 		//print(hit.transform);
 		m_IsOnGround = hit.transform != null || hit2.transform != null;
 		m_IsOnWall = (hit.transform != null ^ hit2.transform != null) || hit.transform == hit2.transform;
+
+		m_Animator.SetBool("Jump", !m_IsOnGround);
 
 		RaycastHit2D simpleCheck = Physics2D.Raycast(transform.position + new Vector3(0, -YOffset,0), m_Rb.velocity, 0.5f, m_PlayerLayerMask);
 		if (simpleCheck.transform != null) {
