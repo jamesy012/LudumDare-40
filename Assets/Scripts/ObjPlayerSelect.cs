@@ -25,6 +25,8 @@ public class ObjPlayerSelect : MonoBehaviour {
 	/// </summary>
 	public float m_DropRange = 1.8f;
 
+	public float m_AngularRotationSpeed = 5.0f;
+
 	private ObjSelectDrag m_Osd;
 
 	private void Awake() {
@@ -46,10 +48,12 @@ public class ObjPlayerSelect : MonoBehaviour {
 			if (simpleCheck) {
 				pickUpObject(simpleCheck.transform.GetComponent<Pickupable>());
 
-				if (Input.GetMouseButtonDown(0)) {
-					m_CurrentlyPickedUp = m_LookingAt;
-					m_CurrentlyPickedUp.m_Rigidbody.gravityScale = 0;
-					m_CurrentlyPickedUp.m_Rigidbody.velocity = Vector2.zero;
+				if (m_LookingAt != null) {
+					if (Input.GetMouseButtonDown(0)) {
+						m_CurrentlyPickedUp = m_LookingAt;
+						m_CurrentlyPickedUp.m_Rigidbody.gravityScale = 0;
+						m_CurrentlyPickedUp.m_Rigidbody.velocity = Vector2.zero;
+					}
 				}
 			} else {
 				pickUpObject(null);
@@ -77,15 +81,23 @@ public class ObjPlayerSelect : MonoBehaviour {
 	private void FixedUpdate() {
 		if (m_CurrentlyPickedUp) {
 			Vector2 mouseDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+			float range =Mathf.Max(Mathf.Min(mouseDir.magnitude, m_HoldingRange), 1.0f);
 
 			//m_CurrentlyPickedUp contains an object
 			Rigidbody2D rb = m_CurrentlyPickedUp.m_Rigidbody;
 			rb.velocity *= 0.9f;
 			rb.angularVelocity *= 0.9f;
-			Vector3 dirToMousePos = (transform.position + (new Vector3(mouseDir.x, mouseDir.y, 0).normalized * m_HoldingRange)) - new Vector3(rb.position.x, rb.position.y, 0);
+			Vector3 dirToMousePos = (transform.position + (new Vector3(mouseDir.x, mouseDir.y, 0).normalized * range)) - new Vector3(rb.position.x, rb.position.y, 0);
 			//rb.position = Vector3.Lerp(rb.position, transform.position + new Vector3(mouseDir.x, mouseDir.y, 0).normalized, 5 * Time.deltaTime);
 			rb.AddForce(dirToMousePos * 2, ForceMode2D.Impulse);
 			//rb.AddForce(dirToMousePos * 20, ForceMode2D.Force);
+
+			if (Input.GetKey(KeyCode.E)) {
+				rb.angularVelocity -= m_AngularRotationSpeed;
+			}
+			if (Input.GetKey(KeyCode.Q)) {
+				rb.angularVelocity += m_AngularRotationSpeed;
+			}
 		}
 	}
 

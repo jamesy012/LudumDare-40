@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	private Rigidbody2D m_Rb;
+	private SpriteRenderer m_Sr;
 	private int m_PlayerLayerMask = 0;
 
 	public float m_JumpScale = 12.0f;
@@ -18,6 +19,8 @@ public class PlayerController : MonoBehaviour {
 
 	private void Awake() {
 		m_Rb = GetComponent<Rigidbody2D>();
+		m_Sr = GetComponent<SpriteRenderer>();
+
 		m_PlayerLayerMask = ~ (1<<LayerMask.NameToLayer("Player"));
 
 		m_Rb.constraints = RigidbodyConstraints2D.FreezeRotation;
@@ -32,9 +35,11 @@ public class PlayerController : MonoBehaviour {
 		float verticalMovment = 0;
 		if (Input.GetKey(KeyCode.D)) {
 			horizontalMovment += Vector2.right.x * m_HorizontalMovementScale;
+			m_Sr.flipX = true;
 		}
 		if (Input.GetKey(KeyCode.A)) {
 			horizontalMovment += Vector2.left.x * m_HorizontalMovementScale;
+			m_Sr.flipX = false;
 		}
 
 		if (Input.GetKeyDown(KeyCode.W) && m_NumJumpsUsed != m_MaxNumOfJumps) {
@@ -68,15 +73,16 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void groundCheck() {
-		Debug.DrawRay(transform.position + new Vector3(0.4f,-0.3f,0), (Vector3.down + new Vector3(-2,0,0)).normalized,Color.red);
-		Debug.DrawRay(transform.position + new Vector3(-0.4f,-0.3f,0), (Vector3.down + new Vector3(2,0,0)).normalized,Color.red);
-		RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0.4f, -0.3f, 0), (Vector3.down + new Vector3(-2, 0, 0)).normalized, 1, m_PlayerLayerMask);
-		RaycastHit2D hit2 = Physics2D.Raycast(transform.position + new Vector3(-0.4f, -0.3f, 0), (Vector3.down + new Vector3(2, 0, 0)).normalized, 1, m_PlayerLayerMask);
+		float YOffset = 0.6f;
+		Debug.DrawRay(transform.position + new Vector3(0.4f,-YOffset, 0), (Vector3.down + new Vector3(-2,0,0)).normalized,Color.red);
+		Debug.DrawRay(transform.position + new Vector3(-0.4f,-YOffset, 0), (Vector3.down + new Vector3(2,0,0)).normalized,Color.red);
+		RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(0.4f, -YOffset, 0), (Vector3.down + new Vector3(-2, 0, 0)).normalized, 1, m_PlayerLayerMask);
+		RaycastHit2D hit2 = Physics2D.Raycast(transform.position + new Vector3(-0.4f, -YOffset, 0), (Vector3.down + new Vector3(2, 0, 0)).normalized, 1, m_PlayerLayerMask);
 		//print(hit.transform);
 		m_IsOnGround = hit.transform != null || hit2.transform != null;
 		m_IsOnWall = (hit.transform != null ^ hit2.transform != null) || hit.transform == hit2.transform;
 
-		RaycastHit2D simpleCheck = Physics2D.Raycast(transform.position, m_Rb.velocity, 0.5f, m_PlayerLayerMask);
+		RaycastHit2D simpleCheck = Physics2D.Raycast(transform.position + new Vector3(0, -YOffset,0), m_Rb.velocity, 0.5f, m_PlayerLayerMask);
 		if (simpleCheck.transform != null) {
 			m_NumJumpsUsed = 0;
 		}

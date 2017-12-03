@@ -35,8 +35,16 @@ public class DoorController : MonoBehaviour {
 	}
 
 	public void runDoorAnimation(bool a_Open) {
+		if(a_Open == m_IsOpening) {
+			return;
+		}
+		float percentage = (Time.time - m_OpenTime) / m_TimeItTakesToOpen;
+		percentage = Mathf.Clamp01(percentage);
+		m_OpenTime = Time.time - (m_TimeItTakesToOpen * (1 - percentage));
+
 		m_IsOpening = a_Open;
 		m_IsMoving = true;
-		m_OpenTime = Time.time;
+
+
 	}
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Draggable : MonoBehaviour {
 
+	public bool m_IsBeingDragged = false;
 	private int m_NumOfCollidersInside = 0;
 
 	/// <summary>

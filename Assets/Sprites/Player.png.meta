@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 818d5bac0c1d9bc4b816522456248fa0
-timeCreated: 1512254507
+guid: 6b3531b1736bb7c4b871fd09417ab434
+timeCreated: 1512273072
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: ButtonBorder_0
+    21300000: Player_0
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -31,7 +31,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -1
     wrapU: 1
@@ -45,11 +45,11 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 11, y: 11, z: 11, w: 11}
-  spritePixelsToUnits: 100
+  spriteBorder: {x: 15, y: 3, z: 29, w: 11}
+  spritePixelsToUnits: 70
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0
   textureType: 8
   textureShape: 1
   maxTextureSizeSet: 0
@@ -92,35 +92,38 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ButtonBorder_0
+      name: Player_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 28
-        height: 23
+        x: 16
+        y: 3
+        width: 55
+        height: 85
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 10, y: 10, z: 10, w: 10}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
-    outline:
-    - - {x: 0, y: 11.5}
-      - {x: -8.999027, y: 8.809511}
-      - {x: -13.787309, y: 1.9969532}
-      - {x: -12.124355, y: -5.7500005}
-      - {x: -4.78828, y: -10.806466}
-      - {x: 4.7882853, y: -10.806464}
-      - {x: 12.124356, y: -5.749999}
-      - {x: 13.787308, y: 1.9969537}
-      - {x: 8.999028, y: 8.809509}
+    outline: []
     physicsShape:
-    - - {x: -14, y: 11.5}
-      - {x: -14, y: -11.5}
-      - {x: 11, y: -11.5}
-      - {x: 14, y: -8.5}
-      - {x: 14, y: 11.5}
+    - - {x: 13, y: 16}
+      - {x: 15.459557, y: 33.732582}
+      - {x: 9, y: 40}
+      - {x: -1.9201508, y: 39.77337}
+      - {x: -12.983154, y: 38.261803}
+      - {x: -23.3967, y: 24.558372}
+      - {x: -23.209045, y: 8.866516}
+      - {x: -29.67023, y: 4.313656}
+      - {x: -34.395508, y: -2.5269394}
+      - {x: -34.52272, y: -21.481358}
+      - {x: -23.030352, y: -26.938225}
+      - {x: -30.256714, y: -48.331463}
+      - {x: 10.796631, y: -47.79663}
+      - {x: 7.2224884, y: -22.100014}
+      - {x: 22.19252, y: -13.171623}
+      - {x: 23, y: 8}
+      - {x: 15.12809, y: 10}
   spritePackingTag: 
   userData: 
   assetBundleName: 

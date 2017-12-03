@@ -78,10 +78,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\CameraShake.cs" />
+    <Compile Include="Assets\Scripts\Conveyor.cs" />
     <Compile Include="Assets\Scripts\DoorController.cs" />
     <Compile Include="Assets\Scripts\Draggable.cs" />
     <Compile Include="Assets\Scripts\GameplayManager.cs" />
     <Compile Include="Assets\Scripts\ListOfNames.cs" />
+    <Compile Include="Assets\Scripts\MakeObjectPickupable.cs" />
     <Compile Include="Assets\Scripts\MenuCommon.cs" />
     <Compile Include="Assets\Scripts\ObjList.cs" />
     <Compile Include="Assets\Scripts\ObjPlayerSelect.cs" />
@@ -94,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Music\track1.txt" />
+    <None Include="Assets\Music\track2.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -56,7 +56,7 @@ public class ObjSelectDrag : MonoBehaviour {
 		Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 		//only hit things that are in the default layer
-		int layerMask = 1 << LayerMask.NameToLayer("Default");
+		int layerMask = 1 << LayerMask.NameToLayer("NewObject");
 		RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 1, layerMask);
 
 		if (hit) {
@@ -70,6 +70,7 @@ public class ObjSelectDrag : MonoBehaviour {
 				m_LastMousePos = mousePos;
 
 				m_SelectedObject = draggableScript;
+				m_SelectedObject.m_IsBeingDragged = true;
 				m_SelectedOffset = m_SelectedObject.transform.position - mousePos;
 				m_SelectedObject.GetComponent<Collider2D>().isTrigger = true;
 				//the rigidbody of the selected object

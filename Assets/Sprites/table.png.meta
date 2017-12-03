@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 818d5bac0c1d9bc4b816522456248fa0
-timeCreated: 1512254507
+guid: 1f19a9755d704404eac0dbdebdbda7f2
+timeCreated: 1512266077
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: ButtonBorder_0
+  fileIDToRecycleName: {}
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -40,16 +39,16 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spriteBorder: {x: 11, y: 11, z: 11, w: 11}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: -1
+  spriteTessellationDetail: 0.95
   textureType: 8
   textureShape: 1
   maxTextureSizeSet: 0
@@ -90,37 +89,27 @@ TextureImporter:
     overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: ButtonBorder_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 28
-        height: 23
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 10, y: 10, z: 10, w: 10}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-    outline:
-    - - {x: 0, y: 11.5}
-      - {x: -8.999027, y: 8.809511}
-      - {x: -13.787309, y: 1.9969532}
-      - {x: -12.124355, y: -5.7500005}
-      - {x: -4.78828, y: -10.806466}
-      - {x: 4.7882853, y: -10.806464}
-      - {x: 12.124356, y: -5.749999}
-      - {x: 13.787308, y: 1.9969537}
-      - {x: 8.999028, y: 8.809509}
+    sprites: []
+    outline: []
     physicsShape:
-    - - {x: -14, y: 11.5}
-      - {x: -14, y: -11.5}
-      - {x: 11, y: -11.5}
-      - {x: 14, y: -8.5}
-      - {x: 14, y: 11.5}
+    - - {x: -41, y: 1}
+      - {x: 42, y: 1}
+      - {x: 42.187195, y: -31.591122}
+      - {x: 49, y: -31.497526}
+      - {x: 48.625618, y: 34.216743}
+      - {x: -48.467976, y: 33.123146}
+      - {x: -47.719215, y: -31.40393}
+      - {x: -40.906403, y: -31.21674}
+    - - {x: -19, y: 26}
+      - {x: 14, y: 26}
+      - {x: 37, y: 8}
+      - {x: -35, y: 8}
+    - - {x: -40, y: 26}
+      - {x: -30.970451, y: 26.310337}
+      - {x: -41, y: 14}
+    - - {x: 25.374382, y: 27.374382}
+      - {x: 40, y: 26}
+      - {x: 40, y: 17}
   spritePackingTag: 
   userData: 
   assetBundleName: 

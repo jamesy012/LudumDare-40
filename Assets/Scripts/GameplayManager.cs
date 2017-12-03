@@ -14,7 +14,8 @@ public class GameplayManager : MonoBehaviour {
 
 	private float m_LastTime;
 	public float m_TimeBetweenRequests = 5.0f;
-	public float m_RandomOffset = 3.0f;
+	public float m_RandomOffsetSub = 3.0f;
+	public float m_RandomOffsetPos = 3.0f;
 
 	private bool m_HasObject = false;
 
@@ -28,6 +29,8 @@ public class GameplayManager : MonoBehaviour {
 	private string m_StartingText;
 	public TextMesh m_NameText;
 
+	private CameraShake m_CameraShake;
+
 	/// <summary>
 	/// counter for the amount of errors the player has done this turn
 	/// </summary>
@@ -36,6 +39,7 @@ public class GameplayManager : MonoBehaviour {
 	private void Awake() {
 		m_ObjList = GetComponent<ObjList>();
 		m_DoorController = FindObjectOfType<DoorController>();
+		m_CameraShake = FindObjectOfType<CameraShake>();
 
 		if (m_CrossHolder == null) {
 			Debug.LogWarning("m_CrossHolder is null");
@@ -51,6 +55,9 @@ public class GameplayManager : MonoBehaviour {
 		}
 		if (m_NameText == null) {
 			Debug.LogWarning("m_NameText is null");
+		}
+		if (m_CameraShake == null) {
+			Debug.LogWarning("m_CameraShake is null");
 		}
 
 		m_TimerSpriteRenderer = m_TimerMask.GetComponent<SpriteRenderer>();
@@ -68,8 +75,7 @@ public class GameplayManager : MonoBehaviour {
 			if(Time.time - m_LastTime > m_TimeBetweenRequests) {
 				m_HasObject = true;
 				getNextObject();
-				m_DoorController.runDoorAnimation(true);
-				m_TurnTimeStart = Time.time;
+
 			}
 		}else {
 			float percentage = (Time.time - m_TurnTimeStart) / m_TimeForTurn;
@@ -87,7 +93,7 @@ public class GameplayManager : MonoBehaviour {
 	private Sprite getRandomObjectInLevel() {
 		Pickupable[] objects = FindObjectsOfType<Pickupable>();
 		if(objects.Length <= 4) {
-			return m_ObjList.getRandomObject();
+			return null;
 		}
 		return objects[UnityEngine.Random.Range(0, objects.Length)].GetComponent<SpriteRenderer>().sprite;
 	}
@@ -95,17 +101,25 @@ public class GameplayManager : MonoBehaviour {
 	private void getNextObject() {
 		m_RequiredObjHolder.sprite = getRandomObjectInLevel();
 
+		if (m_RequiredObjHolder.sprite == null) {
+			setupNextTurn();
+			return;
+		}
+
 		//there is a chance they could have put another object in while the door is closing
 		m_NumOfCrosses = 0;
 		updateCrossUI();
 
+		m_TurnTimeStart = Time.time;
+
+		m_DoorController.runDoorAnimation(true);
 		m_NameText.text = m_StartingText.Replace("_NAME_", ListOfNames.getRandomName());
 	}
 
 	private void setupNextTurn() {
 		m_RequiredObjHolder.sprite = null;
 
-		m_LastTime = Time.time + UnityEngine.Random.Range(-m_RandomOffset, m_RandomOffset);
+		m_LastTime = Time.time + UnityEngine.Random.Range(-m_RandomOffsetSub, m_RandomOffsetPos);
 		m_HasObject = false;
 		m_NumOfCrosses = 0;
 		updateCrossUI();
@@ -134,6 +148,7 @@ public class GameplayManager : MonoBehaviour {
 		if(a_Object.GetComponent<SpriteRenderer>().sprite == m_RequiredObjHolder.sprite) {
 			setupNextTurn();
 		}else {
+			m_CameraShake.startShake();
 			m_NumOfCrosses++;
 			updateCrossUI();
 			runLoseCheck();
